@@ -24,7 +24,7 @@ class SocketHelper {
     _socket?.on(event, callback);
   }
 
-  static void emit(String event, dynamic data) {
+  static void emit(String event, [dynamic data]) {
     _socket?.emit(event, data);
   }
 

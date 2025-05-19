@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:socket_client_example/helpers/socket_helper.dart';
 import 'package:socket_client_example/models/user.dart';
+import 'package:socket_client_example/widgets/user_card.dart';
 
 class ConnectedUsersScreen extends StatefulWidget {
   final User user;
@@ -40,17 +41,12 @@ class _ConnectedUsersScreenState extends State<ConnectedUsersScreen> {
       ),
       body: ListView.builder(
         padding: const EdgeInsets.all(8),
-        itemBuilder: (context, index) => Card(
-          child: ListTile(
-            leading: const Icon(Icons.person),
-            subtitle: Text(
-              "#${_users[index].id}",
-              style: const TextStyle(fontSize: 12, color: Colors.grey),
-            ),
-            title: Text(_users[index].name +
-                (_users[index].id == widget.user.id ? " (You)" : "")),
-            trailing: const Icon(Icons.circle, color: Colors.green, size: 10),
-          ),
+        itemBuilder: (context, index) => UserCard(
+          user: _users[index],
+          me: widget.user,
+          isOnline: _users.map((e) => e.id).contains(
+                _users[index].id,
+              ),
         ),
         itemCount: _users.length,
       ),
